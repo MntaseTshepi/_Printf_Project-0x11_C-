@@ -14,13 +14,25 @@ int get_string(char *string)
 
 	if (string == NULL)
 	{
+		__putchar('n');
+		__putchar('u');
+		__putchar('l');
+		__putchar('l');
 		return (-1);
 	}
-	while (string[i] != '\0')
+	else if (string)
 	{
-		__putchar(string[i]);
-		count += 1;
-		i++;
+
+		while (string[i] != '\0')
+		{
+			__putchar(string[i]);
+			count += 1;
+			i++;
+		}
+	}
+	if (count == 0)
+	{
+		return (-1);
 	}
 	return (count);
 }
