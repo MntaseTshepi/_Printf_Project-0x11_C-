@@ -30,9 +30,5 @@ int get_string(char *string)
 			i++;
 		}
 	}
-	if (count == 0)
-	{
-		return (-1);
-	}
 	return (count);
 }
