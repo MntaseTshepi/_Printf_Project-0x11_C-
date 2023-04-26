@@ -8,28 +8,11 @@
 
 int print_decimal(int number)
 {
-	int value = number;
-	int digit[32];
-	int i = 0;
+	int int_count;
+	char buffer[21];
 
-	if (value < 0)
-	{
-		value = -value;
-		__putchar('-');
-	}
-	while (value != 0)
-	{
-		digit[i++] = value % 10;
-		value /= 10;
-	}
-	if (i == 0)
-	{
-		__putchar('0');
-		return (0);
-	}
-	while (i > 0)
-	{
-		__putchar('0' + digit[--i]);
-	}
-	return (number);
+	int_count = sprintf(buffer, "%d", number);
+	write(1, buffer, int_count);
+
+	return (int_count);
 }
