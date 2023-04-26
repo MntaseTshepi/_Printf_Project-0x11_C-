@@ -36,7 +36,7 @@ int _printf(const char *format, ...)
 			value += get_string(s);
 			j++;
 		}
-		else if (format[j] == '%' || format[j + 1] != '%')
+		else if (format[j] == '%' && format[j + 1] != '%')
 		{
 			value += __putchar('%');
 			value += __putchar(format[j + 1]);
