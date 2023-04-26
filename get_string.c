@@ -14,10 +14,7 @@ int get_string(char *string)
 
 	if (string == NULL)
 	{
-		__putchar('n');
-		__putchar('u');
-		__putchar('l');
-		__putchar('l');
+		string = "(null)";
 		return (-1);
 	}
 	else if (string)
