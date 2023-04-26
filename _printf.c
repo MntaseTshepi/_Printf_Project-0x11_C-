@@ -8,55 +8,29 @@
 
 int _printf(const char *format, ...)
 {
-	unsigned int j, value = 0, r_val, int_count = 0;
-	char *s;
 	va_list args;
+	int value_count = 0;
 
-	va_start(args, format);
 	if (!format)
 		return (-1);
-	for (j = 0; format[j] != '\0'; j++)
+	va_start(args, format);
+	while (*format != '\0')
 	{
-		if (format[j] != '%')
+		if (*format != '%')
 		{
-			value += __putchar(format[j]);
+			value_count += __putchar(*format);
 		}
-		else if (format[j + 1] == 'c')
+		else
 		{
-			value += __putchar(va_arg(args, int));
-			j++;
-		}
-		else if (format[j + 1] == 's')
-		{
-			s = va_arg(args, char *);
-			if (!s)
+			format++;
+			if (*format == '\0')
 			{
-				s = "(null)";
+				return (-1);
 			}
-			value += get_string(s);
-			j++;
+			value_count += print_args(format, args);
 		}
-		else if (format[j + 1] == '%')
-		{
-			value += __putchar('%');
-			j++;
-		}
-		else if (format[j + 1] == 'i' || format[j + 1] == 'd')
-		{
-			r_val = print_decimal(va_arg(args, int));
-			j++;
-			if (r_val == 0)
-				int_count++;
-			else
-			{
-				while (r_val != 0)
-				{
-					int_count++;
-					r_val /= 10;
-				}
-			}
-		}
+		format++;
 	}
 	va_end(args);
-	return (value + int_count);
+	return (value_count);
 }
