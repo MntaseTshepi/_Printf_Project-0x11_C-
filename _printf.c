@@ -15,58 +15,47 @@ int _printf(const char *format, ...)
 	va_start(args, format);
 	if (!format)
 		return (-1);
-	while (format[j] != '\0')
+	for (j = 0; format[j] != '\0'; j++)
 	{
-		if (format[j] == '%' && format[j + 1] != '\0')
-		{
-			j++;
-			if (format[j] != '%' || format[j] == 'c' || format[j] == 's')
-			{
-				if (format[j] == 'c')
-				{
-					value += __putchar(va_arg(args, int));
-				}
-				if (format[j] == 's')
-				{
-					s = va_arg(args, char *);
-					if (!s)
-					{
-						s = "(null)";
-					}
-					value += get_string(s);
-				}
-				if (format[j] == '%')
-				{
-					value += __putchar('%');
-				}
-				else if (format[j + 1] == 'i' || format[j + 1] == 'd')
-				{
-					r_val = print_decimal(va_arg(args, int));
-					j++;
-					if (r_val == 0)
-						int_count++;
-					else
-					{
-						while (r_val != 0)
-						{
-							int_count++;
-							r_val /= 10;
-						}
-					}
-				}
-			}
-			else
-			{
-				value += __putchar('%');
-				value += __putchar(format[j]);
-			}
-		}
-		else
+		if (format[j] != '%')
 		{
 			value += __putchar(format[j]);
 		}
-		j++;
-
+		else if (format[j + 1] == 'c')
+		{
+			value += __putchar(va_arg(args, int));
+			j++;
+		}
+		else if (format[j + 1] == 's')
+		{
+			s = va_arg(args, char *);
+			if (!s)
+			{
+				s = "(null)";
+			}
+			value += get_string(s);
+			j++;
+		}
+		else if (format[j + 1] == '%')
+		{
+			value += __putchar('%');
+			j++;
+		}
+		else if (format[j + 1] == 'i' || format[j + 1] == 'd')
+		{
+			r_val = print_decimal(va_arg(args, int));
+			j++;
+			if (r_val == 0)
+				int_count++;
+			else
+			{
+				while (r_val != 0)
+				{
+					int_count++;
+					r_val /= 10;
+				}
+			}
+		}
 	}
 	va_end(args);
 	return (value + int_count);
